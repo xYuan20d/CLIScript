@@ -1,0 +1,10 @@
+/*
+
+!README.md
+!LICENSE
+!.gitignore
+
+!CLIScript/
+
+__pycache__/
+.DS_Store
