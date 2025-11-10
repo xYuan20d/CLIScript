@@ -10,7 +10,7 @@ with open("requirements.txt", "r", encoding="utf-8") as f:
 
 setup(
     name="cliscript",
-    version="0.1.0",
+    version="0.1.1",
     author="xYuan20d",
     author_email="xiaoyy20d@gmail.com",
     description="A Domain Specific Language for building CLI applications",
