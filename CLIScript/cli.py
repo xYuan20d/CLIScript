@@ -1,5 +1,7 @@
 import argparse
+import os
 import sys
+import importlib.util
 import importlib
 from typing import Dict, List, Any, Callable
 
@@ -52,14 +54,31 @@ class CLIRunner:
 
     def _import_modules(self):
         """导入use语句中指定的模块"""
+
         for node in self.ast:
             if node["type"] == "use":
-                module_name = node["module"].replace('.py', '')
-                try:
-                    module = importlib.import_module(module_name)
-                    self.imported_modules[module_name] = module
-                except ImportError as e:
-                    print(f"Error: Could not import module {module_name}: {e}", file=sys.stderr)
+                module_path = node["module"]
+
+                # 检查是否是文件路径
+                if module_path.endswith('.py') and os.path.exists(module_path):
+                    # 文件路径导入
+                    try:
+                        # 从文件路径导入模块
+                        module_name = os.path.basename(module_path).replace('.py', '')
+                        spec = importlib.util.spec_from_file_location(module_name, module_path)
+                        module = importlib.util.module_from_spec(spec)
+                        spec.loader.exec_module(module)
+                        self.imported_modules[module_name] = module
+                    except Exception as e:
+                        print(f"Error: Could not import module from {module_path}: {e}", file=sys.stderr)
+                else:
+                    # 标准模块导入
+                    module_name = module_path.replace('.py', '')
+                    try:
+                        module = importlib.import_module(module_name)
+                        self.imported_modules[module_name] = module
+                    except ImportError as e:
+                        print(f"Error: Could not import module {module_name}: {e}", file=sys.stderr)
 
     def _check_default_command(self):
         """检查是否有default命令"""
