@@ -39,7 +39,7 @@ setup(
     },
     include_package_data=True,
     package_data={
-        "cliscript": ["*.py"],
+        "cliscript": ["*.py", "script/*.py"],
     },
     keywords="cli, dsl, argparse, command-line, parser",
     project_urls={
