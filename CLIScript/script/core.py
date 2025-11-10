@@ -481,31 +481,3 @@ class CLIScriptParser:
 
         print("\n=== AST ===")
         print(json.dumps(ast, indent=2, ensure_ascii=False))
-
-
-# ==================== 测试代码 ====================
-
-def test_escape_sequences():
-    """测试转义字符功能"""
-    source = open("../../test.cli").read()
-
-    cli_parser = CLIScriptParser()
-    result = cli_parser.parse(source)
-
-    print("=== Tokens ===")
-    for token in result["tokens"]:
-        print(token)
-
-    print("\n=== AST with Escape Sequences ===")
-    print(json.dumps(result["ast"], indent=2, ensure_ascii=False))
-
-    return result
-
-
-def main():
-    # 测试转义字符
-    test_escape_sequences()
-
-
-if __name__ == "__main__":
-    main()
