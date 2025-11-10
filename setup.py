@@ -1,23 +1,26 @@
 from setuptools import setup, find_packages
+import os
 
 # 读取 README.md 作为长描述
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 # 读取 requirements.txt
-with open("requirements.txt", "r", encoding="utf-8") as f:
-    requirements = f.read().splitlines()
+requirements = []
+if os.path.exists("requirements.txt"):
+    with open("requirements.txt", "r", encoding="utf-8") as f:
+        requirements = f.read().splitlines()
 
 setup(
     name="cliscript",
-    version="0.1.3",
+    version="0.1.4",
     author="xYuan20d",
     author_email="xiaoyy20d@gmail.com",
     description="A Domain Specific Language for building CLI applications",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/xYuan20d/CLIScript",
-    packages=find_packages(),
+    packages=find_packages(),  # 这会找到 CLIScript 包
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
@@ -34,12 +37,12 @@ setup(
     install_requires=requirements,
     entry_points={
         "console_scripts": [
-            "cliscript=cliscript.cli:main",
+            "cliscript=CLIScript.cli:main",
         ],
     },
     include_package_data=True,
     package_data={
-        "cliscript": ["*.py", "script/*.py"],
+        "CLIScript": ["*.py", "script/*.py"],
     },
     keywords="cli, dsl, argparse, command-line, parser",
     project_urls={
