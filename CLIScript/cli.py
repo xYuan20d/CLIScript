@@ -493,3 +493,69 @@ class CLIRunner:
             func_args[var_name] = value
 
         return func_args
+
+
+def main():
+    from CLIScript.script.core import CLIScriptParser
+    import os
+    """CLIScript 命令行入口点"""
+    parser = argparse.ArgumentParser(
+        description="CLIScript - A DSL for building CLI applications",
+        prog="cliscript"
+    )
+
+    parser.add_argument(
+        "file",
+        help="CLIScript file to parse and execute"
+    )
+
+    parser.add_argument(
+        "args",
+        nargs=argparse.REMAINDER,
+        help="Arguments to pass to the CLI application"
+    )
+
+    parser.add_argument(
+        "--tokens",
+        action="store_true",
+        help="Show tokens instead of executing"
+    )
+
+    parser.add_argument(
+        "--ast",
+        action="store_true",
+        help="Show AST instead of executing"
+    )
+
+    args = parser.parse_args()
+
+    # 读取 CLIScript 文件
+    if not os.path.exists(args.file):
+        print(f"Error: File '{args.file}' not found", file=sys.stderr)
+        sys.exit(1)
+
+    with open(args.file, 'r', encoding='utf-8') as f:
+        source = f.read()
+
+    # 解析 CLIScript
+    cli_parser = CLIScriptParser()
+    result = cli_parser.parse(source)
+
+    if args.tokens:
+        # 显示 tokens
+        cli_parser.print_tokens()
+        return
+
+    if args.ast:
+        # 显示 AST
+        cli_parser.print_ast()
+        return
+
+    # 模拟命令行参数
+    old_argv = sys.argv
+    try:
+        sys.argv = [args.file] + args.args
+        runner = CLIRunner(result["ast"])
+        runner.run()
+    finally:
+        sys.argv = old_argv

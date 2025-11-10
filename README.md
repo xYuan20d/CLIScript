@@ -12,6 +12,12 @@
 
 ## 快速开始
 
+### 安装
+
+```bash
+pip install cliscript
+```
+
 ### 基本语法
 
 ```cliscript

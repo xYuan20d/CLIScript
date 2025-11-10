@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cliscript"
+dynamic = ["version"]
+description = "A Domain Specific Language for building CLI applications"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [
+  {name = "xYuan20d", email = "xiaoyy20d@gmail.com"}
+]
+keywords = ["cli", "dsl", "argparse", "command-line", "parser"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+dependencies = []
+
+[project.urls]
+"Homepage" = "https://github.com/xYuan20d/CLIScript"
+"Bug Tracker" = "https://github.com/xYuan20d/CLIScript/issues"
+
+[project.scripts]
+cliscript = "cliscript.cli:main"
+
+[tool.setuptools_scm]
+write_to = "cliscript/_version.py"

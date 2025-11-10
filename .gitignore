@@ -3,6 +3,9 @@
 !README.md
 !LICENSE
 !.gitignore
+!pyproject.toml
+!setup.py
+!requirements.txt
 
 !CLIScript/
 
